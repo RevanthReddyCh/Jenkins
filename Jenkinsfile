@@ -32,7 +32,7 @@ pipeline {
         }
         stage('remove docker container') {
             steps {
-                sh 'sudo docker rm -f nginx-cont'
+                sh 'sudo docker rm -f nginx-containerrr'
             }
         }
         stage('status docker') {
@@ -43,11 +43,11 @@ pipeline {
     }
 
     post {
-        always {
+        failure {
             script {
                 def snsTopicArn = 'arn:aws:sns:us-east-1:862066027316:jenkins'
-                def message = "The pipeline has completed with status: ${currentBuild.currentResult}"
-                def subject = "Pipeline Notification: ${currentBuild.fullDisplayName}"
+                def message = "The pipeline has failed with status: ${currentBuild.currentResult}"
+                def subject = "Pipeline Failure Notification: ${currentBuild.fullDisplayName}"
                 
                 withAWS(region: 'us-east-1', credentials: 'aws-credentials-id') {
                     snsPublish(topicArn: snsTopicArn, message: message, subject: subject)
