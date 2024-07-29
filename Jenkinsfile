@@ -45,7 +45,7 @@ pipeline {
     post {
         always {
             script {
-                def snsTopicArn = 'arn:aws:sns:us-east-1:862066027316:jenkins:e0765fac-b80a-421c-a8ec-9ed68f9e2d6e'
+                def snsTopicArn = 'arn:aws:sns:us-east-1:862066027316:jenkins'
                 def message = "The pipeline has completed with status: ${currentBuild.currentResult}"
                 def subject = "Pipeline Notification: ${currentBuild.fullDisplayName}"
                 
